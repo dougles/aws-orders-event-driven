@@ -1,0 +1,41 @@
+# ── Build artifacts ─────────────────────────────
+target/
+**/target/
+lambda-s3-processor/function.zip   # se regenera con: zip function.zip index.mjs
+*.jar
+*.war
+
+# ── IDE ─────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+.ipr
+.vscode/
+.settings/
+.project
+.classpath
+.factorypath
+*.launch
+
+# ── OS ──────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ── Logs ────────────────────────────────────────
+*.log
+logs/
+
+# ── Entorno / secretos (NUNCA commitear) ────────
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.jks
+
+# ── Node (Lambda) ───────────────────────────────
+node_modules/
+
+# ── Maven wrapper (el jar se descarga solo) ─────
+.mvn/wrapper/maven-wrapper.jar

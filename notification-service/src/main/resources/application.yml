@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: notification-service
+  cloud:
+    aws:
+      credentials:
+        access-key: test
+        secret-key: test
+      region:
+        static: us-east-1
+      endpoint: http://localhost:4566
+      sqs:
+        listener:
+          max-concurrent-messages: 10   # concurrencia del listener
+          poll-timeout: 10s             # long polling

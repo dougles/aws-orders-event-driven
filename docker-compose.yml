@@ -1,0 +1,28 @@
+services:
+  localstack:
+    # 'latest' (2026.x) exige licencia Pro; 3.8.1 es la comunidad libre
+    image: localstack/localstack:3.8.1
+    container_name: localstack
+    ports:
+      - "4566:4566"            # API principal (S3, SQS, SNS, Lambda, IAM...)
+    environment:
+      - DEBUG=0
+      - PERSISTENCE=1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=us-east-1
+      # Ejecutor de Lambda en docker: requiere el socket de Docker
+      - LAMBDA_EXECUTOR=docker
+      - LAMBDA_REMOTE_DOCKER=0
+    volumes:
+      # Scripts de init (se ejecutan manualmente con docker exec; ver README)
+      - ./localstack-init:/opt/init-scripts
+      # Código + zip de la Lambda, accesible desde dentro del contenedor
+      - ./lambda-s3-processor:/opt/lambda-s3-processor
+      # Persistencia del estado local
+      - localstack-data:/var/lib/localstack
+      # Necesario para LAMBDA_EXECUTOR=docker
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  localstack-data:

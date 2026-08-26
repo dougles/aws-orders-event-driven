@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: order-service
+  cloud:
+    aws:
+      credentials:
+        access-key: test          # dummy para LocalStack
+        secret-key: test
+      region:
+        static: us-east-1
+      endpoint: http://localhost:4566   # ← TODO apunta a LocalStack
+      # Para AWS real: elimina 'endpoint' y 'credentials';
+      # el SDK usa la cadena de credenciales (perfil, env vars o rol)
+      s3:
+        path-style-access-enabled: true
+
+app:
+  sns:
+    orders-topic-arn: arn:aws:sns:us-east-1:000000000000:orders-topic
+  s3:
+    bucket: orders-bucket
+
+logging:
+  level:
+    software.amazon.awssdk.request: DEBUG
