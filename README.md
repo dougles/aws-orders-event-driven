@@ -9,8 +9,8 @@ POST /orders ──► order-service (8080) ──┬──► SNS orders-topic 
 
 | Módulo | Rol | Stack |
 |---|---|---|
-| `order-service` | API REST `POST /orders`; publica el evento a SNS y sube el JSON a S3 | Spring Boot 4.1.0, Java 21, Spring Cloud AWS 4.0.0 |
-| `notification-service` | Consume `orders-queue` (SQS) y "envía" la notificación; producto `FAIL` → DLQ | Spring Boot 4.1.0, Java 21, Spring Cloud AWS 4.0.0 |
+| `order-service` | API REST `POST /orders`; publica el evento a SNS y sube el JSON a S3 | Spring Boot 4.1.0, Java 25, Spring Cloud AWS 4.0.0 |
+| `notification-service` | Consume `orders-queue` (SQS) y "envía" la notificación; producto `FAIL` → DLQ | Spring Boot 4.1.0, Java 25, Spring Cloud AWS 4.0.0 |
 | `lambda-s3-processor` | Se dispara con `s3:ObjectCreated:Put`, lee el JSON y lo procesa | Node 20, `@aws-sdk/client-s3` |
 | `localstack-init` | Scripts que crean la infraestructura (bucket, colas, topic, Lambda) | awslocal |
 
@@ -19,7 +19,7 @@ Flujo: `POST /orders` → SNS → SQS (raw delivery) → consumido por notificat
 ## Requisitos
 
 - Docker Desktop (con el motor Linux corriendo)
-- Java 21 y Maven 3.9+ (para compilar los servicios)
+- Java 25 (LTS) y Maven 3.9+ (para compilar los servicios)
 - Node 24 (solo para regenerar `function.zip`, opcional)
 
 ## Puesta en marcha
